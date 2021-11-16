@@ -1,4 +1,3 @@
-//Xuất n số nguyên tố đầu tiên
 #include<stdio.h>
  #include<math.h>
  int songuyento (int n) 
