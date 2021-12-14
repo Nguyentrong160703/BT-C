@@ -1,7 +1,9 @@
-﻿                         /* MỘT SỐ BÀI TOÁN VỀ MA TRẬN */
+﻿                                            /* MỘT SỐ BÀI TOÁN VỀ MA TRẬN */
 #include<stdio.h>
 #include<string.h>
 #include<math.h>
+#include<time.h>
+#include<stdlib.h>
 
 /*1. HÀM NHẬP MA TRẬN*/
 //Cách 1: Nhập m, n trong hàm
@@ -100,7 +102,7 @@ void DeleteRowColumn(int a[][20], int& m, int& n,
     m--;
     n--;
 }
-/*8. HOÁ VỊ 2 CỘT/2 DÒNG TRONG MA TRẬN*/
+/*8. HOÁN VỊ 2 CỘT/2 DÒNG TRONG MA TRẬN*/
 void swap(int& a, int& b)
 {
     int temp = a;
@@ -150,6 +152,7 @@ void IndexOfMax(int a[][20], int m, int n)
             }
 }
 /*11. TÍNH TỔNG CÁC CÁC PHẦN TỬ TRÊN ĐƯỜNG CHÉO CHÍNH TRONG MA TRẬN VUÔNG*/
+       //Đường chéo chính: chỉ số dòng = chỉ số cột
 int Sum(int a[][20], int n)
 {
     int sum = 0;
@@ -178,6 +181,7 @@ int Min(int a[][20], int n)
     return min;
 }
 /*12. TÍNH TỔNG CÁC PHẦN TỬ TRÊN ĐƯỜNG CHÉO PHỤ TRONG MA TRẬN VUÔNG*/
+    //Đường chéo phụ: chỉ số dòng + chỉ số cột = số dòng(hoặc số cột)
 int Sum(int a[][20], int n)
 {
     int sum = 0;
@@ -223,4 +227,203 @@ void Transpose(int a[][20], int n)
     for (int i = 0; i < n; i++)
         for (int j = 0; j < i; j++)
             swap(a[i][j], a[j][i]);
+}
+/*16. NHẬP MA TRẬN NGẪU NHIÊN TỪ 0-500, XUẤT MA TRẬN*/
+void nhapdongvacot(int &m, int &n) 
+{
+    do {
+        printf("Nhap so dong va cot: ");
+        scanf("%d%d", &m, &n);
+        if (m <= 0 && m > 100 || n <= 0 && n > 100)
+            printf("Nhap sai, nhap lai");
+    } while (m <= 0 && m > 100 || n <= 0 && n > 100);
+}
+void nhapmatran(int a[][100], int m, int n) 
+{
+    int min = 0;
+    int max = 500;
+    srand(time(0));
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            a[i][j] = min + rand() % (max + 1 - min);
+        }
+    }
+}
+void xuatmatran(int a[][100], int m, int n) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%4d", a[i][j]);
+        }
+        printf("\n");
+    }
+}
+/*17. XUẤT ĐƯỜNG CHÉO CHÍNH*/
+void xuatcheochinh(int a[], int n)
+{
+    printf("Duong cheo chinh: ");
+    for (int i = 0; i < n; i++)
+        printf("%4d", a[i][i]);
+}
+/*18. TÍNH TỔNG TAM GIÁC DƯỚI, TAM GIÁC TRÊN TỪ PHẢI QUA TRÁI CỦA ĐƯỜNG CHÉO PHỤ*/
+long tamgiacduoi(int a[], int n)
+{
+    long s = 0;
+    for (int i = 0; i < n; i++) 
+    {
+        for (int j = 0; j < n; j++)
+        {
+            s += a[i][j];
+        }
+    }
+    return s;
+}
+/*19. TÍNH GIÁ TRỊ TRUNG BÌNH CỦA CÁC PHẦN TỬ TRONG MA TRẬN*/
+long giatritb(int a[][100], int m, int n) 
+{
+    long s = 0;
+    long tb;
+    for (int i = 0; i < m; i++) 
+    {
+        for (int j = 0; j < n; j++) 
+        {
+            s = s + a[i][j];
+        }
+    }
+    tb = s / (m * n);
+    return tb;
+}
+/*20. TÍNH TỔNG MA TRẬN m dòng và n cột*/
+long tongmatran(int a[][100], int m, int n) 
+{
+    long s = 0;
+    for (int i = 0; i < m; i++) 
+    {
+        for (int j = 0; j < n; j++)
+            s = s + a[i][j];
+    }
+    return s;
+}
+/*21. TÍNH TỔNG TỪNG DÒNG TRONG MA TRẬN*/
+void tongdong(int a[][100], int m, int n) 
+{
+    for (int i = 0; i < m; i++) 
+    {
+        long s = 0;
+        for (int j = 0; j < n; j++) 
+        {
+            s = s + a[i][j];
+        }
+        printf("\nDong thu % d co tong la : % ld", i, s);
+    }
+}
+/*22. TÍNH TỔNG TỪNG CỘT TRONG MA TRẬN*/
+void tongcot(int a[][100], int m, int n) 
+{
+    for (int i = 0; i < n; i++) 
+    {
+        long s = 0;
+        for (int j = 0; j < m; j++) 
+        {
+            s = s + a[j][i];
+        }
+        printf("\nCot thu % d co tong la : % ld", i, s);
+    }
+}
+/*23. TÍNH TỔNG DÒNG K TRONG MA TRẬN*/
+void tongdongk(int a[][100], int m, int n, int k = 2) 
+{
+    for (int i = 0; i < m; i++) 
+    {
+        long s = 0;
+        if (i == k) 
+        {
+            for (int j = 0; j < n; j++) 
+            {
+                s = s + a[i][j];
+            }
+            printf("\nDong thu % d co tong la : % ld", i, s);
+        }
+    }
+}
+/*24. TÍNH TỔNG TAM GIÁC ĐƯỜNG CHÉO CHÍNH*/
+long Tongtamgiacduoi(int a[][100], int n)
+{
+    long sum = 0;
+    for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < n - 1; j++)
+            if (i >= j)
+                sum = sum + a[i][j];
+    return sum;
+}
+/*25. TÍNH TỔNG TAM GIÁC TRÊN ĐƯỜNG CHÉO CHÍNH*/
+long tongtamgiactren(int a[][100], int n)
+{
+    long tong = 0;
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            tong += a[i][j];
+        }
+    }
+    return tong;
+}
+/*26. TỔNG HAI MA TRẬN*/
+int main() 
+{
+    int i, j, matrix1[100][100]{}, matrix2[100][100]{}, matrix3[100][100]{};
+    int row1, col1, row2, col2;
+
+    printf("Cong hai ma tran trong C: \n\n");
+    printf("Nhap so hang cua matrix1: ");
+    scanf("%d", &row1);
+    printf("Nhap so cot cua matrix1: ");
+    scanf("%d", &col1);
+
+    printf("Nhap so hang cua matrix2: ");
+    scanf("%d", &row2);
+    printf("Nhap so cot cua matrix2: ");
+    scanf("%d", &col2);
+
+    /*
+    * Truoc khi nhap cac phan tu, kiem tra xem so hang va so cot
+    * cua hai ma tran co bang nhau khong
+    */
+    if (row1 != row2 || col1 != col2) {
+        printf("\nHai ma tran khong cung kich co!");
+        exit(0);
+    }
+
+    //Nhap cac phan tu cua ma tran 1
+    printf("\nNhap ma tran 1\n");
+    for (i = 0; i < row1; i++) {
+        for (j = 0; j < col1; j++) {
+            printf("Nhap phan tu matrix1[%d][%d]: ", i, j);
+            scanf("%d", &matrix1[i][j]);
+        }
+    }
+
+    //Nhap cac phan tu cua ma tran 2
+    printf("\nNhap ma tran 2\n");
+    for (i = 0; i < row2; i++)
+        for (j = 0; j < col2; j++) {
+            printf("Nhap phan tu matrix2[%d][%d]: ", i, j);
+            scanf("%d", &matrix2[i][j]);
+        }
+
+    //Cong hai ma tran
+    for (i = 0; i < row1; i++)
+        for (j = 0; j < col1; j++) {
+            matrix3[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+
+    //Hien thi ma tran ket qua
+    printf("\nKet qua cua phep cong hai ma tran la: \n");
+    for (i = 0; i < row1; i++) {
+        for (j = 0; j < col1; j++) {
+            printf("%d\t", matrix3[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
 }
